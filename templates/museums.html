@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<meta charset="UTF-8">
+<style>
+   .thumb img  {
+    border: 2px solid #55c5e9; /* Рамка вокруг фотографии */
+    padding: 15px; /* Расстояние от картинки до рамки */
+    background: #666; /* Цвет фона */
+    margin-right: 10px; /* Отступ справа */
+    margin-bottom: 10px; /* Отступ снизу */
+   }
+
+   .rightpic {
+    float: right; /* Выравнивание по правому краю */
+   }
+   .pointer { cursor: pointer; }
+  .sign {
+      float: left; /* Выравнивание по правому краю */
+      padding: 7px; /* Поля внутри блока */
+      margin: 10px 0 5px 5px; /* Отступы вокруг */
+     }
+     .sign figcaption {
+      margin: 0 auto 5px; /* Отступы вокруг абзаца */
+      
+
+     }
+
+  </style>
+  <body>
+
+        {% if current_user.is_authenticated %}
+            {% for museum in m %}
+      <figure class="sign">
+         <p><img src="/static/picture/{{museum[1]}}.jpg" alt={{museum[1]}} class=pointer width="200" height="200" onClick='location.href="http://127.0.0.1:8080/museum/{{museum[1]}}"'>
+         <figcaption>{{museum[1]}} </figcaption>
+            
+       </figure>
+      
+
+    {% endfor %}
+
+      {% else %}
+          <h1> Эта страница доступна только авторизированным пользователям. </h1>
+{% endif %}
+    
+</body>
+{% endblock %}

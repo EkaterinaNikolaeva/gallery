@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<meta charset="UTF-8">
+<style>
+   .thumb img  {
+    border: 2px solid #55c5e9; /* Рамка вокруг фотографии */
+    padding: 15px; /* Расстояние от картинки до рамки */
+    background: #666; /* Цвет фона */
+    margin-right: 10px; /* Отступ справа */
+    margin-bottom: 10px; /* Отступ снизу */
+   }
+
+   .rightpic {
+    float: right; /* Выравнивание по правому краю */
+   }
+   .pointer { cursor: pointer; }
+	.sign {
+	    float: left; /* Выравнивание по правому краю */
+	    padding: 7px; /* Поля внутри блока */
+	    margin: 10px 0 5px 5px; /* Отступы вокруг */
+	   }
+	   .sign figcaption {
+	    margin: 0 auto 5px; /* Отступы вокруг абзаца */
+	    
+
+	   }
+
+  </style>
+
+
+<body style="background-color:#FDF4E3">
+
+
+	<h1 align="center">{{m}} </h1>
+	{% for picture in virtual %}
+			
+			 {% for pic in pictures %}
+					 {% if pic[0] == picture[0] %}
+					 	{% if pic[2] == picture[2] %}
+					 <figure class="sign">
+						<p><img src="/static/picture/{{picture[3]}}" alt={{picture}} class=pointer width="200" height="200" onClick='location.href="http://127.0.0.1:8080/picture/{{painters[pic[2] - 1][1]}}/{{picture[0]}}"'>
+			   			<figcaption>{{picture[0]}} </figcaption>
+			   		</figure>
+						{% endif %}
+					{% endif %}
+			{% endfor %}
+
+
+
+		{% endfor %}
+
+	
+</body>
+{% endblock %}

@@ -60,11 +60,6 @@ def root():
                            artists=artists)
 
 
-@app.route('/index/<title>')
-def index(title):
-    # title = "HOME"
-    return render_template('base.html', title=title)
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -136,10 +131,6 @@ def reqister():
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
-
-@app.route('/success')
-def success():
-    return render_template("success.html")
 
 
 

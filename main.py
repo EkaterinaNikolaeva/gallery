@@ -54,10 +54,88 @@ def load_user(user_id):
     return session.query(users.User).get(user_id)
 
 
+
 @app.route('/')
 def root():
     return render_template('gallery.html',
                            artists=artists)
+
+
+@app.route('/index/<title>')
+def index(title):
+    # title = "HOME"
+    return render_template('base.html', title=title)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        session = db_session.create_session()
+        user = session.query(users.User).filter(users.User.email == form.email.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            return redirect("/")
+        return render_template('login.html',
+                               message="Неправильный логин или пароль",
+                               form=form)
+    return render_template('login.html', title='Авторизация', form=form)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
+
+
+@app.route('/gallery')
+def gallery():
+    return render_template('gallery.html',
+                           artists=artists)
+
+@app.route('/museums')
+def museums():
+    return render_template('museums.html',
+                           m=m)
+
+@app.route('/museum/<m>')
+def museum(m):
+    return render_template('museum.html',
+                           virtual=virtual[m], m=m, pictures=pict, painters=painters)
+
+@app.route('/painter/<p>')
+def painter(p):
+    return render_template('painter.html',
+                           pictures=pictures[p], p=p)
+
+
+@app.route('/picture/<p>/<pic>')
+def picture(p, pic):
+    return render_template('picture.html',
+                           pictures=pictures[p], p=pic, museums=m)
+
+@app.route('/register', methods=['GET', 'POST'])
+def reqister():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        if form.password.data != form.password_again.data:
+            return render_template('register.html', title='Регистрация',
+                                   form=form,
+                                   message="Пароли не совпадают")
+        session = db_session.create_session()
+        if session.query(users.User).filter(users.User.email == form.email.data).first():
+            return render_template('register.html', title='Регистрация',
+                                   form=form,
+                                   message="Такой пользователь уже есть")
+        user = users.User(
+            name=form.name.data,
+            email=form.email.data,
+            about=form.about.data
+        )
+        user.set_password(form.password.data)
+        session.add(user)
+        session.commit()
+        return redirect('/login')
+    return render_template('register.html', title='Регистрация', form=form)
 
 
 @app.route('/success')

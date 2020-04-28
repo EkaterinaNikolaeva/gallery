@@ -2,7 +2,6 @@ import sqlite3
 import io
 import requests
 import lxml.etree
-import shutil # Подключаем модуль
 import os
 
 

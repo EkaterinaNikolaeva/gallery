@@ -33,7 +33,7 @@
         {% if current_user.is_authenticated %}
             {% for museum in m %}
       <figure class="sign">
-         <p><img src="/static/picture/{{museum[1]}}.jpg" alt={{museum[1]}} class=pointer width="200" height="200" onClick='location.href="http://127.0.0.1:8080/museum/{{museum[1]}}"'>
+         <p><img src="/static/picture/{{museum[1]}}.jpg" alt={{museum[1]}} class=pointer width="200" height="200" onClick='location.href="https://gallery-yandex.herokuapp.com/museum/{{museum[1]}}"'>
          <figcaption>{{museum[1]}} </figcaption>
             
        </figure>

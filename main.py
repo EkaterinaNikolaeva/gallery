@@ -3,7 +3,6 @@ from flask import Flask, render_template, redirect, request
 from loginform import LoginForm
 from registerform import RegisterForm
 import sqlite3
-from PIL import Image
 import io
 import maps
 import requests

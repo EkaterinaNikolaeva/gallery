@@ -4,3 +4,4 @@ SQLAlchemy
 Flask-WTF
 lxml
 requests
+WTForms

@@ -5,3 +5,4 @@ Flask-WTF
 lxml
 requests
 WTForms
+Flask-Migrate

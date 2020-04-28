@@ -1,0 +1,6 @@
+Flask
+Flask-Login
+SQLAlchemy
+Flask-WTF
+lxml
+requests

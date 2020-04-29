@@ -26,8 +26,11 @@
 
         <h3 align="center" onClick='location.href="https://gallery-yandex.herokuapp.com/museums"' class="navbar-brand pointer"> <font face="Garamond"> <strong> Виртуальный музей </h3>
        
-     {% if current_user.is_authenticated %}
-    <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
+    {% if current_user.is_authenticated %}
+         <h3 align="center" onClick='location.href="https://gallery-yandex.herokuapp.com/museums"' class="navbar-brand pointer"> <font face="Garamond"> <strong> Виртуальный музей </h3>
+         <a class="navbar-brand">{{ current_user.name }}</a>
+         <a href="/my" class="btn btn-warning">Личный кабинет</a>
+          <a href="/logout" class="btn btn-danger">Выйти</a>
       {% else %}
           <p>
         <a class="btn btn-primary " href="/register">Зарегистрироваться</a>

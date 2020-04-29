@@ -144,7 +144,7 @@ def painter(p):
 @app.route('/picture/<p>/<pic>')
 def picture(p, pic):
     return render_template('picture.html',
-                           pictures=pictures[p], p=pic, museums=m)
+                           pictures=pictures[p], p=pic, museums=m, painter=p)
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():

@@ -8,8 +8,9 @@ import maps
 import requests
 import lxml.etree
 from data import users
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import os
+from data import l
 
 
 
@@ -58,7 +59,18 @@ def load_user(user_id):
 def root():
     return render_template('gallery.html',
                            artists=artists)
-
+@app.route('/my')
+def my():
+    con1 = sqlite3.connect("db/1.db")
+    cur1 = con1.cursor()
+    us = cur1.execute("""SELECT * FROM Users""").fetchall() 
+    me = dict()
+    for user in us:
+        me[user[0]] = cur1.execute("""SELECT * FROM Likes
+                        WHERE user_id = ?
+            """, (user[0],)).fetchall()
+    return render_template('my.html',
+                           pictures=pict, me=me[current_user.id], artists=painters)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -74,6 +86,33 @@ def login():
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
 
+@app.route('/like/<p>/<pic>',  methods=['GET', 'POST'])
+def like(p, pic):
+    session = db_session.create_session()
+    likes = session.query(l.Likes).filter(l.Likes.picture.in_([pic])).first()
+    if not likes:
+        likes = l.Likes()
+        likes.picture = pic
+        current_user.likes.append(likes)
+        session.merge(current_user)
+        session.commit()
+    
+    
+    return redirect(f'/picture/{p}/{pic}')
+
+@app.route('/likes_delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def likes_delete(id):
+    session = db_session.create_session()
+    likes = session.query(l.Likes).filter(l.Likes.id == id,
+                                      l.Likes.user == current_user).first()
+    if likes:
+        session.delete(likes)
+        session.commit()
+    else:
+        abort(404)
+    return redirect('/my')
+     
 @app.route('/logout')
 @login_required
 def logout():

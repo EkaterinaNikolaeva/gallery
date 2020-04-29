@@ -52,6 +52,11 @@
 			
 
 		{% endfor %}
+		{% if current_user.is_authenticated %}
+
+			<a onClick='location.href="https://gallery-yandex.herokuapp.com/like/{{painter}}/{{p}}"' class="btn btn-primary">Мне нравится</a>
+		{% endif %}
+
 
 	
 </body>

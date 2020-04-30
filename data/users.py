@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 import sqlalchemy.orm as orm
 
-
+# Создание твблицы users для хранения информации о пользователях
 
 class User(SqlAlchemyBase, UserMixin):
     __tablename__ = 'users'

@@ -2,6 +2,7 @@ import datetime
 import sqlalchemy
 from .db_session import SqlAlchemyBase
 
+# Создание таблицы pictures для хранения информации о картинах
 
 class Picture(SqlAlchemyBase):
     __tablename__ = 'pictures'

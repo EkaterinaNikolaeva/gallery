@@ -90,7 +90,7 @@ def login():
 @app.route('/like/<p>/<pic>',  methods=['GET', 'POST'])
 def like(p, pic):
     session = db_session.create_session()
-    likes = session.query(l.Likes).filter(l.Likes.picture.in_([pic])).first()
+    likes = session.query(l.Likes).filter(l.Likes.picture == pic, l.Likes.user == current_user).first()
     if not likes:
         likes = l.Likes()
         likes.picture = pic

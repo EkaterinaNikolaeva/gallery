@@ -12,14 +12,14 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 import os
 from data import l
 
-
+# Главный файл
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-
+# Подключаемся к базе данных и берем всю необходимую информацию
 con = sqlite3.connect("db/1.db")
 cur = con.cursor()
 painters = cur.execute("""SELECT * FROM Painters""").fetchall()
@@ -42,16 +42,13 @@ for museum in m:
                     Museums WHERE Name = ?)
         """, (museum[1],)).fetchall()
 
-
+# Функция запуска
 def main():
     
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
 
-@login_manager.user_loader
-def load_user(user_id):
-    session = db_session.create_session()
-    return session.query(users.User).get(user_id)
+
 
 
 

@@ -2,6 +2,7 @@ import datetime
 import sqlalchemy
 from .db_session import SqlAlchemyBase
 
+# Создание таблицы Painter для хранения информации о художниках
 
 class Painter(SqlAlchemyBase):
     __tablename__ = 'Painters'

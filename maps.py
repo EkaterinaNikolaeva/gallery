@@ -4,7 +4,7 @@ import requests
 import lxml.etree
 import os
 
-
+# С помощью этого файла создаются карты для изображения расположения музея
 
 con = sqlite3.connect("db/1.db")
 cur = con.cursor()

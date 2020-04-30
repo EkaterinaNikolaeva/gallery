@@ -50,7 +50,11 @@ def main():
 
 
 
-
+    
+@login_manager.user_loader
+def load_user(user_id):
+    session = db_session.create_session()
+    return session.query(users.User).get(user_id)
 
 @app.route('/')
 def root():

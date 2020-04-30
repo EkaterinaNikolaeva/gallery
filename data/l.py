@@ -4,7 +4,7 @@ from sqlalchemy import orm
 
 from .db_session import SqlAlchemyBase
 
-# Создание таблицы Likes для хранения избранных картин пользователей
+# Создание таблицы likes для хранения избранных картин пользователей
 
 class Likes(SqlAlchemyBase):
     __tablename__ = 'likes'
